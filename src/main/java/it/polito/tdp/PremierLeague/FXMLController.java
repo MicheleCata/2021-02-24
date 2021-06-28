@@ -47,17 +47,49 @@ public class FXMLController {
 
     @FXML
     void doCreaGrafo(ActionEvent event) {
+    	txtResult.clear();
+    	Match m = cmbMatch.getValue();
+    	if (m== null) {
+    		txtResult.appendText("Seleziona un match!");
+    		return;
+    	}
     	
+    	this.model.creaGrafo(m);
+    	
+    	txtResult.appendText("Grafo creato\n #VERTICI: "+ model.getNumVertici()+ " \n #ARCHI: "+ model.getNArchi()+"\n");
     }
 
     @FXML
     void doGiocatoreMigliore(ActionEvent event) {    	
+    	txtResult.clear();
     	
+    	if (this.model.getGrafo()==null) {
+    		txtResult.appendText("Crea prima il grafo");
+    		return;
+    	}
+    	txtResult.appendText("GIOCATORE MIGLIORE:\n"+ this.model.getMigliore());
     }
     
     @FXML
     void doSimula(ActionEvent event) {
-
+    	if(this.model.getGrafo() == null) {
+    		this.txtResult.setText("Crea prima il grafo!");
+    		return;
+    	}
+    	else {
+	    	String ns = this.txtN.getText();
+	    	Match m = this.cmbMatch.getValue();
+	    	try {
+	    		int N = Integer.parseInt(ns);
+	    		this.txtResult.appendText(m.getTeamHomeNAME()+" "+model.getGoalCasa()+"-"+this.model.getGoalOspite()+" "+m.getTeamAwayNAME()+"\n");
+	    		this.txtResult.appendText("\nEspulsioni "+m.getTeamHomeNAME()+": "+this.model.getRossiCasa());
+	    		this.txtResult.appendText("\nEspulsioni "+m.getTeamAwayNAME()+": "+this.model.getRossiOspiti());
+	    		
+	    	}catch(NumberFormatException nfe) {
+		    		this.txtResult.setText("Inserire un intero");
+		    		return;
+		    	}
+    	}
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
@@ -73,5 +105,7 @@ public class FXMLController {
     
     public void setModel(Model model) {
     	this.model = model;
+    	
+    	cmbMatch.getItems().addAll(model.getMatches());
     }
 }
