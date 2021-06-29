@@ -1,10 +1,8 @@
 package it.polito.tdp.PremierLeague.model;
 
 import java.util.PriorityQueue;
-
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultWeightedEdge;
-
 import it.polito.tdp.PremierLeague.model.EventO.EventType;
 
 public class Simulator {
@@ -114,9 +112,6 @@ public class Simulator {
 
 	public int getEspulsiOspite() {
 		return EspulsiOspite;
-	}
-	
-	
-	
+	}	
 	
 }
